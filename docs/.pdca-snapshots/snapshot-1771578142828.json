@@ -1,0 +1,593 @@
+{
+  "timestamp": "2026-02-20T09:02:22.826Z",
+  "reason": "compaction",
+  "status": {
+    "version": "2.0",
+    "lastUpdated": "2026-02-20T09:00:25.611Z",
+    "activeFeatures": [
+      "blogposter",
+      "goclaude",
+      "stores",
+      "ui",
+      "LoginForm.tsx",
+      "RegisterForm.tsx",
+      "ProtectedRoute.tsx",
+      "login",
+      "register",
+      "PostCard.tsx",
+      "PostList.tsx",
+      "PostForm.tsx",
+      "PostDetail.tsx",
+      "CommentForm.tsx",
+      "CommentItem.tsx",
+      "CommentList.tsx",
+      "AuthProvider.tsx",
+      "posts",
+      "new",
+      "[id]",
+      "edit",
+      "dashboard"
+    ],
+    "primaryFeature": "blogposter",
+    "features": {
+      "blogposter": {
+        "phase": "design",
+        "phaseNumber": 2,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [
+          "FR-01: 회원가입",
+          "FR-02: 로그인",
+          "FR-03: 로그아웃",
+          "FR-04: 글 작성",
+          "FR-05: 글 목록",
+          "FR-06: 글 상세",
+          "FR-07: 글 수정",
+          "FR-08: 글 삭제",
+          "FR-09: 댓글 작성",
+          "FR-10: 댓글 삭제",
+          "FR-11: 마이페이지"
+        ],
+        "documents": {
+          "plan": "docs/01-plan/features/blogposter.plan.md",
+          "design": "docs/02-design/features/blogposter.design.md"
+        },
+        "timestamps": {
+          "started": "2026-02-20T08:20:00.000Z",
+          "lastUpdated": "2026-02-20T08:40:00.000Z"
+        },
+        "lastFile": "docs/02-design/features/blogposter.design.md"
+      },
+      "goclaude": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:47:41.827Z",
+          "lastUpdated": "2026-02-20T09:00:25.611Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/hooks/usePosts.ts"
+      },
+      "stores": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:56:28.661Z",
+          "lastUpdated": "2026-02-20T08:56:28.661Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/stores/auth-store.ts"
+      },
+      "ui": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:56:36.192Z",
+          "lastUpdated": "2026-02-20T08:56:52.583Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/ui/Pagination.tsx"
+      },
+      "LoginForm.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:05.307Z",
+          "lastUpdated": "2026-02-20T08:57:05.307Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/LoginForm.tsx"
+      },
+      "RegisterForm.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:11.129Z",
+          "lastUpdated": "2026-02-20T08:57:11.129Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/RegisterForm.tsx"
+      },
+      "ProtectedRoute.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:13.683Z",
+          "lastUpdated": "2026-02-20T08:57:13.683Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/ProtectedRoute.tsx"
+      },
+      "login": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:15.112Z",
+          "lastUpdated": "2026-02-20T08:57:15.112Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/app/(auth)/login/page.tsx"
+      },
+      "register": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:16.229Z",
+          "lastUpdated": "2026-02-20T08:57:16.229Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/app/(auth)/register/page.tsx"
+      },
+      "PostCard.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:36.204Z",
+          "lastUpdated": "2026-02-20T08:57:36.204Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/PostCard.tsx"
+      },
+      "PostList.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:39.322Z",
+          "lastUpdated": "2026-02-20T08:57:39.322Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/PostList.tsx"
+      },
+      "PostForm.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:50.206Z",
+          "lastUpdated": "2026-02-20T08:57:50.206Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/PostForm.tsx"
+      },
+      "PostDetail.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:57:55.558Z",
+          "lastUpdated": "2026-02-20T08:57:55.558Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/PostDetail.tsx"
+      },
+      "CommentForm.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:58:09.931Z",
+          "lastUpdated": "2026-02-20T08:58:09.931Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/CommentForm.tsx"
+      },
+      "CommentItem.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:58:13.746Z",
+          "lastUpdated": "2026-02-20T08:58:13.746Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/CommentItem.tsx"
+      },
+      "CommentList.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:58:17.341Z",
+          "lastUpdated": "2026-02-20T08:58:17.341Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/CommentList.tsx"
+      },
+      "AuthProvider.tsx": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:58:32.577Z",
+          "lastUpdated": "2026-02-20T08:58:32.577Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/components/features/AuthProvider.tsx"
+      },
+      "posts": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:58:38.279Z",
+          "lastUpdated": "2026-02-20T08:58:38.279Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/app/posts/page.tsx"
+      },
+      "new": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:58:42.137Z",
+          "lastUpdated": "2026-02-20T08:58:42.137Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/app/posts/new/page.tsx"
+      },
+      "[id]": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:59:08.204Z",
+          "lastUpdated": "2026-02-20T08:59:08.204Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/app/posts/[id]/page.tsx"
+      },
+      "edit": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:59:12.284Z",
+          "lastUpdated": "2026-02-20T08:59:12.284Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/app/posts/[id]/edit/page.tsx"
+      },
+      "dashboard": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-20T08:59:15.649Z",
+          "lastUpdated": "2026-02-20T08:59:15.649Z"
+        },
+        "lastFile": "D:/vsCodeWorkSpace/goclaude/src/app/(main)/dashboard/page.tsx"
+      }
+    },
+    "pipeline": {
+      "currentPhase": 2,
+      "level": "Dynamic",
+      "phaseHistory": [
+        {
+          "phase": 1,
+          "completedAt": "2026-02-20T08:30:00.000Z"
+        }
+      ]
+    },
+    "session": {
+      "startedAt": "2026-02-20T08:03:01.638Z",
+      "onboardingCompleted": true,
+      "lastActivity": "2026-02-20T09:00:25.611Z"
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-20T08:20:00.000Z",
+        "feature": "blogposter",
+        "phase": "plan",
+        "action": "initialized"
+      },
+      {
+        "timestamp": "2026-02-20T08:30:00.000Z",
+        "feature": "blogposter",
+        "phase": "plan",
+        "action": "completed"
+      },
+      {
+        "timestamp": "2026-02-20T08:40:00.000Z",
+        "feature": "blogposter",
+        "phase": "design",
+        "action": "completed"
+      },
+      {
+        "timestamp": "2026-02-20T08:47:41.827Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:47:49.291Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:48:08.673Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:28.661Z",
+        "feature": "stores",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:36.192Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:39.648Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:42.399Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:44.821Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:47.851Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:49.860Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:52.583Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:56:58.436Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:05.307Z",
+        "feature": "LoginForm.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:11.129Z",
+        "feature": "RegisterForm.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:13.683Z",
+        "feature": "ProtectedRoute.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:15.112Z",
+        "feature": "login",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:16.229Z",
+        "feature": "register",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:31.553Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:36.204Z",
+        "feature": "PostCard.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:39.322Z",
+        "feature": "PostList.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:50.206Z",
+        "feature": "PostForm.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:57:55.558Z",
+        "feature": "PostDetail.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:04.217Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:09.931Z",
+        "feature": "CommentForm.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:13.746Z",
+        "feature": "CommentItem.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:17.341Z",
+        "feature": "CommentList.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:30.159Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:32.577Z",
+        "feature": "AuthProvider.tsx",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:38.279Z",
+        "feature": "posts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:42.137Z",
+        "feature": "new",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:58:54.189Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:59:08.204Z",
+        "feature": "[id]",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:59:12.284Z",
+        "feature": "edit",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:59:15.649Z",
+        "feature": "dashboard",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T08:59:58.423Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T09:00:24.283Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-20T09:00:25.611Z",
+        "feature": "goclaude",
+        "phase": "do",
+        "action": "updated"
+      }
+    ]
+  }
+}

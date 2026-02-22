@@ -1,0 +1,16 @@
+{
+  "sessionCount": 38,
+  "lastSession": {
+    "startedAt": "2026-02-22T10:03:26.052Z",
+    "platform": "claude",
+    "level": "Dynamic"
+  },
+  "currentFeature": null,
+  "currentPhase": null,
+  "lastArchived": {
+    "feature": "blogposter",
+    "matchRate": 94,
+    "archivedAt": "2026-02-21",
+    "archivedTo": "docs/archive/2026-02/blogposter/"
+  }
+}
