@@ -17,7 +17,7 @@ export function LikeButton({ postId, likeCount }: LikeButtonProps) {
       onClick={toggleLike}
       disabled={!isAuthenticated || loading}
       className={`flex items-center gap-1 text-sm transition-colors cursor-pointer ${
-        liked ? "text-red-500" : "text-gray-400 hover:text-red-400"
+        liked ? "text-danger" : "text-fg-muted hover:text-danger"
       } disabled:cursor-default`}
       title={isAuthenticated ? (liked ? "좋아요 취소" : "좋아요") : "로그인 후 이용 가능"}
     >

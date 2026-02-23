@@ -19,13 +19,13 @@ export function AdminPostList() {
     }
   }
 
-  if (isLoading) return <div className="text-gray-400">글 목록 불러오는 중...</div>;
+  if (isLoading) return <div className="text-fg-muted">글 목록 불러오는 중...</div>;
 
   return (
     <div>
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b text-left text-gray-500">
+          <tr className="border-b border-border text-left text-fg-muted">
             <th className="pb-2 font-medium">제목</th>
             <th className="pb-2 font-medium">작성자</th>
             <th className="pb-2 font-medium text-right">좋아요</th>
@@ -33,19 +33,19 @@ export function AdminPostList() {
             <th className="pb-2 font-medium"></th>
           </tr>
         </thead>
-        <tbody className="divide-y">
+        <tbody className="divide-y divide-border">
           {posts.map((p) => (
             <tr key={p.id}>
-              <td className="py-2 text-gray-700 max-w-xs truncate">{p.title}</td>
-              <td className="py-2 text-gray-500">{p.author_name}</td>
-              <td className="py-2 text-right text-gray-500">{p.like_count}</td>
-              <td className="py-2 text-right text-gray-400">
+              <td className="py-2 text-foreground max-w-xs truncate">{p.title}</td>
+              <td className="py-2 text-fg-secondary">{p.author_name}</td>
+              <td className="py-2 text-right text-fg-secondary">{p.like_count}</td>
+              <td className="py-2 text-right text-fg-muted">
                 {new Date(p.created_at).toLocaleDateString()}
               </td>
               <td className="py-2 text-right">
                 <button
                   onClick={() => handleDelete(p.id, p.title)}
-                  className="text-xs text-red-500 hover:text-red-700 cursor-pointer"
+                  className="text-xs text-danger hover:text-danger-hover cursor-pointer"
                 >
                   삭제
                 </button>

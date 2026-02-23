@@ -20,7 +20,7 @@ function SearchResults() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold">검색 결과</h1>
         {query && (
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-fg-muted">
             &ldquo;{query}&rdquo; 검색 결과 {!isLoading && `(${results.length}건)`}
           </p>
         )}
@@ -32,7 +32,7 @@ function SearchResults() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="py-10 text-center text-gray-400">Loading...</div>}>
+    <Suspense fallback={<div className="py-10 text-center text-fg-muted">Loading...</div>}>
       <SearchResults />
     </Suspense>
   );

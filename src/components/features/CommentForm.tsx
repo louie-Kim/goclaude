@@ -17,7 +17,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
 
   if (!isAuthenticated) {
     return (
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-fg-muted">
         댓글을 작성하려면 로그인이 필요합니다.
       </p>
     );
@@ -51,7 +51,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
         onChange={(e) => setContent(e.target.value)}
         placeholder="댓글을 입력하세요..."
         maxLength={500}
-        className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-black"
+        className="flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-fg-muted outline-none focus:border-accent focus:ring-1 focus:ring-accent"
         required
       />
       <Button type="submit" size="sm" disabled={loading}>

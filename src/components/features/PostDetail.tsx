@@ -54,7 +54,7 @@ export function PostDetail({ post }: PostDetailProps) {
       <h1 className="text-3xl font-bold">{post.title}</h1>
 
       <div className="mt-3 flex items-center justify-between">
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-fg-muted">
           {post.author_name} &middot;{" "}
           {new Date(post.created_at).toLocaleDateString()}
         </div>
@@ -81,7 +81,7 @@ export function PostDetail({ post }: PostDetailProps) {
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-600"
+              className="rounded-full bg-overlay px-2.5 py-0.5 text-xs text-fg-secondary"
             >
               #{tag}
             </span>
@@ -89,9 +89,9 @@ export function PostDetail({ post }: PostDetailProps) {
         </div>
       )}
 
-      <hr className="my-6 border-gray-200" />
+      <hr className="my-6 border-border" />
 
-      <div className="whitespace-pre-wrap text-gray-800 leading-relaxed">
+      <div className="whitespace-pre-wrap text-foreground leading-relaxed">
         {post.content}
       </div>
     </article>

@@ -19,9 +19,9 @@ export function CommentList({ postId }: CommentListProps) {
 
       <div className="mt-4 space-y-3">
         {isLoading ? (
-          <p className="text-sm text-gray-500">Loading...</p>
+          <p className="text-sm text-fg-muted">Loading...</p>
         ) : comments.length === 0 ? (
-          <p className="text-sm text-gray-500">아직 댓글이 없습니다.</p>
+          <p className="text-sm text-fg-muted">아직 댓글이 없습니다.</p>
         ) : (
           comments.map((comment) => (
             <CommentItem key={comment.id} comment={comment} onDeleted={refetch} />

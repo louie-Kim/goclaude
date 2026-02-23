@@ -16,15 +16,15 @@ export default function AdminPage() {
       <div>
         <h1 className="mb-6 text-2xl font-bold">관리자 페이지</h1>
 
-        <div className="mb-6 flex gap-4 border-b">
+        <div className="mb-6 flex gap-4 border-b border-border">
           {(["stats", "users", "posts"] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
               className={`pb-2 text-sm font-medium cursor-pointer transition-colors ${
                 tab === t
-                  ? "border-b-2 border-black text-black"
-                  : "text-gray-400 hover:text-gray-600"
+                  ? "border-b-2 border-accent text-foreground"
+                  : "text-fg-muted hover:text-fg-secondary"
               }`}
             >
               {t === "stats" ? "통계" : t === "users" ? "사용자" : "글 관리"}

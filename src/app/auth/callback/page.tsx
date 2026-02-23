@@ -69,7 +69,7 @@ export default function AuthCallbackPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <p className="text-gray-400">로그인 처리 중...</p>
+      <p className="text-fg-muted">로그인 처리 중...</p>
     </div>
   );
 }

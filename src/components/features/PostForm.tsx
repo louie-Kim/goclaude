@@ -77,7 +77,7 @@ export function PostForm({ initialData, onSubmit, submitLabel = "발행" }: Post
         />
 
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">태그</label>
+          <label className="block text-sm font-medium text-fg-secondary">태그</label>
           <div className="flex gap-2">
             <Input
               value={tagInput}
@@ -99,13 +99,13 @@ export function PostForm({ initialData, onSubmit, submitLabel = "발행" }: Post
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm"
+                  className="inline-flex items-center gap-1 rounded-full bg-overlay px-3 py-1 text-sm text-fg-secondary"
                 >
                   #{tag}
                   <button
                     type="button"
                     onClick={() => removeTag(tag)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-fg-muted hover:text-fg-secondary"
                   >
                     &times;
                   </button>
@@ -115,7 +115,7 @@ export function PostForm({ initialData, onSubmit, submitLabel = "발행" }: Post
           )}
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-danger">{error}</p>}
 
         <div className="flex justify-end gap-3">
           <Button type="button" variant="secondary" onClick={() => router.back()}>

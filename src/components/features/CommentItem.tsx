@@ -25,22 +25,22 @@ export function CommentItem({ comment, onDeleted }: CommentItemProps) {
   }
 
   return (
-    <div className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+    <div className="rounded-lg border border-border bg-surface-alt p-4">
       <div className="flex items-center justify-between">
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-fg-muted">
           {comment.author_name} &middot;{" "}
           {new Date(comment.created_at).toLocaleDateString()}
         </div>
         {isOwner && (
           <button
             onClick={handleDelete}
-            className="text-sm text-red-500 hover:underline"
+            className="text-sm text-danger hover:underline"
           >
             삭제
           </button>
         )}
       </div>
-      <p className="mt-1 text-sm text-gray-800">{comment.content}</p>
+      <p className="mt-1 text-sm text-foreground">{comment.content}</p>
     </div>
   );
 }

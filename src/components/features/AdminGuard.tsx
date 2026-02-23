@@ -13,14 +13,14 @@ export function AdminGuard({ children }: AdminGuardProps) {
   const { isAdmin } = useAdmin();
 
   if (isLoading) {
-    return <div className="py-20 text-center text-gray-400">Loading...</div>;
+    return <div className="py-20 text-center text-fg-muted">Loading...</div>;
   }
 
   if (!isAuthenticated || !isAdmin) {
     return (
       <div className="py-20 text-center">
-        <p className="text-lg font-medium text-gray-700">접근 권한이 없습니다.</p>
-        <p className="mt-1 text-sm text-gray-500">관리자만 이 페이지에 접근할 수 있습니다.</p>
+        <p className="text-lg font-medium text-foreground">접근 권한이 없습니다.</p>
+        <p className="mt-1 text-sm text-fg-muted">관리자만 이 페이지에 접근할 수 있습니다.</p>
       </div>
     );
   }

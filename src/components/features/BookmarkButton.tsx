@@ -16,7 +16,7 @@ export function BookmarkButton({ postId }: BookmarkButtonProps) {
       onClick={toggleBookmark}
       disabled={!isAuthenticated || loading}
       className={`flex items-center transition-colors cursor-pointer ${
-        bookmarked ? "text-yellow-500" : "text-gray-400 hover:text-yellow-400"
+        bookmarked ? "text-warning" : "text-fg-muted hover:text-warning"
       } disabled:cursor-default`}
       title={isAuthenticated ? (bookmarked ? "북마크 제거" : "북마크") : "로그인 후 이용 가능"}
     >

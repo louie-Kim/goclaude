@@ -63,7 +63,7 @@ export function RegisterForm() {
           required
         />
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-danger">{error}</p>}
 
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "가입 중..." : "회원가입"}
@@ -72,9 +72,9 @@ export function RegisterForm() {
 
       <SocialLoginButtons />
 
-      <p className="mt-4 text-center text-sm text-gray-500">
+      <p className="mt-4 text-center text-sm text-fg-muted">
         이미 계정이 있으신가요?{" "}
-        <Link href="/login" className="text-black font-medium hover:underline">
+        <Link href="/login" className="text-accent font-medium hover:underline">
           로그인
         </Link>
       </p>

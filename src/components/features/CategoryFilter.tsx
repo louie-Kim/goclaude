@@ -18,8 +18,8 @@ export function CategoryFilter({ selected, onSelect }: CategoryFilterProps) {
         onClick={() => onSelect(null)}
         className={`rounded-full px-3 py-1 text-sm font-medium transition-colors cursor-pointer ${
           selected === null
-            ? "bg-black text-white"
-            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            ? "bg-accent text-background"
+            : "bg-overlay text-fg-secondary hover:bg-surface-alt"
         }`}
       >
         전체
@@ -29,7 +29,7 @@ export function CategoryFilter({ selected, onSelect }: CategoryFilterProps) {
           key={cat.id}
           onClick={() => onSelect(cat.id)}
           className={`rounded-full px-3 py-1 text-sm font-medium transition-colors cursor-pointer ${
-            selected === cat.id ? "text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            selected === cat.id ? "text-background" : "bg-overlay text-fg-secondary hover:bg-surface-alt"
           }`}
           style={selected === cat.id ? { backgroundColor: cat.color } : undefined}
         >

@@ -1,22 +1,66 @@
 @import "tailwindcss";
 
+/* =============================================
+   SkillsCokac — Design Tokens
+   Extracted from https://skills.cokac.com/
+   ============================================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background layers */
+  --background: #131320;      /* page background — deep navy black */
+  --surface: #1c1c2c;          /* card, input, surface */
+  --surface-alt: #0f0f1e;      /* slightly darker surface */
+  --overlay: #262636;          /* hover overlay — muted/secondary */
+
+  /* Borders */
+  --border: #262636;
+  --border-subtle: #1e1e30;
+
+  /* Foreground / Text */
+  --foreground: #f4f4f5;       /* primary text */
+  --fg-secondary: #a1a1aa;     /* muted foreground */
+  --fg-muted: #71717a;         /* very muted */
+
+  /* Accent colors */
+  --accent: #7e63e9;           /* primary purple */
+  --accent-hover: #6b50d6;
+  --accent-purple: #a855f7;    /* brighter purple — category active */
+  --accent-teal: #22d3ee;      /* cyan — badges, tags */
+  --accent-green: #34d399;     /* emerald green */
+
+  /* Semantic */
+  --danger: #f87171;
+  --danger-hover: #ef4444;
+  --warning: #fbbf24;
+  --success: #34d399;
 }
 
 @theme inline {
+  /* Map CSS vars to Tailwind utility classes */
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-overlay: var(--overlay);
+
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+
   --color-foreground: var(--foreground);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-muted: var(--fg-muted);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-teal: var(--accent-teal);
+  --color-accent-green: var(--accent-green);
+
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {

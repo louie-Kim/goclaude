@@ -21,11 +21,11 @@ export default function EditPostPage({
   }
 
   if (isLoading) {
-    return <div className="py-10 text-center text-gray-500">Loading...</div>;
+    return <div className="py-10 text-center text-fg-muted">Loading...</div>;
   }
 
   if (!post) {
-    return <div className="py-10 text-center text-red-500">글을 찾을 수 없습니다.</div>;
+    return <div className="py-10 text-center text-danger">글을 찾을 수 없습니다.</div>;
   }
 
   return (

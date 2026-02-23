@@ -11,19 +11,19 @@ export function Textarea({ label, error, className = "", id, ...props }: Textare
   return (
     <div className="space-y-1">
       {label && (
-        <label htmlFor={textareaId} className="block text-sm font-medium text-gray-700">
+        <label htmlFor={textareaId} className="block text-sm font-medium text-fg-secondary">
           {label}
         </label>
       )}
       <textarea
         id={textareaId}
-        className={`w-full rounded-lg border px-3 py-2 text-sm outline-none transition-colors focus:border-black focus:ring-1 focus:ring-black ${
-          error ? "border-red-500" : "border-gray-300"
+        className={`w-full rounded-lg border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-fg-muted outline-none transition-colors focus:border-accent focus:ring-1 focus:ring-accent ${
+          error ? "border-danger" : "border-border"
         } ${className}`}
         rows={10}
         {...props}
       />
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-danger">{error}</p>}
     </div>
   );
 }
