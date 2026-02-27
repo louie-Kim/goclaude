@@ -51,8 +51,27 @@ Extends `FigmaCaptureButton.tsx` to support multi-element selection via two new 
 - "다시 선택" and cancel buttons unchanged
 
 ### FR-8: Multi-select action handlers
-- `copyMultiToClipboard`: sequential `captureForDesign` loop per element, toast with count
-- `sendMultiToFigma`: sequential `captureForDesign` loop per element, toast with count
+- `copyMultiToClipboard`:
+  - Guard: `!window.figma?.captureForDesign` → error toast (NOT `!window.figma` which passes `{}`)
+  - Find common ancestor of all selected elements via `getCommonAncestor()`
+  - Single `captureForDesign({ selector: getCssSelector(container) })` call (no sequential overwrite)
+  - Wrapped in try/catch with error toast
+  - toast with count on success
+- `sendMultiToFigma`:
+  - Guard: `!window.figma?.captureForDesign` → error toast
+  - Sequential `captureForDesign` loop per element (plugin mode sends directly, no overwrite issue)
+  - toast with count on success
+
+### FR-8a: `getCommonAncestor` helper (module-level)
+- Finds the lowest common ancestor element that contains all selected elements
+- Signature: `getCommonAncestor(elements: Element[]): Element`
+- Returns single element if only one in array
+- Walks up DOM tree until node contains all elements
+- Falls back to `document.body` if no common ancestor found
+
+### FR-8b: Null check for `captureForDesign`
+- All 4 action handlers must use `!window.figma?.captureForDesign` guard
+- NOT `!window.figma` (which passes when `window.figma = {}` causing silent TypeError)
 
 ### FR-9: Zero-change constraint
 - `copyToClipboard` — byte-for-byte unchanged

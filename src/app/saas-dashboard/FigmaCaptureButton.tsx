@@ -17,7 +17,7 @@ declare global {
 const FIGMA_URL =
   "https://www.figma.com/design/A2ZU1TZOkfdbE9MYDiXbyI/Untitled?node-id=0-1";
 
-// ── Safe CSS selector (Tailwind arbitrary values 제외) ─────────────────────────
+// ── Safe CSS selector ──────────────────────────────────────────────────────────
 function getCssSelector(el: Element): string {
   const parts: string[] = [];
   let cur: Element | null = el;
@@ -46,7 +46,7 @@ function elLabel(el: Element) {
   return el.tagName.toLowerCase() + (cls.length ? "." + cls.join(".") : "");
 }
 
-// ── Single-select highlight ────────────────────────────────────────────────────
+// ── Highlight ──────────────────────────────────────────────────────────────────
 const HL_ID = "__cap_hl__";
 function showHL(el: Element) {
   removeHL();
@@ -96,7 +96,17 @@ function removeAllSelHL() {
   document.querySelectorAll("." + HL_MULTI_CLASS).forEach(d => d.remove());
 }
 
-// ── Element collection from drag rect (module-level) ─────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function getCommonAncestor(elements: Element[]): Element {
+  if (elements.length === 1) return elements[0];
+  let node: Element | null = elements[0].parentElement;
+  while (node && node !== document.body) {
+    if (elements.every(el => node!.contains(el))) return node;
+    node = node.parentElement;
+  }
+  return document.body;
+}
+
 function getElementsInRect(x1: number, y1: number, x2: number, y2: number): Sel[] {
   const left = Math.min(x1, x2), top = Math.min(y1, y2);
   const right = Math.max(x1, x2), bottom = Math.max(y1, y2);
@@ -113,7 +123,6 @@ function getElementsInRect(x1: number, y1: number, x2: number, y2: number): Sel[
     }
   }
 
-  // Keep only elements whose bounding-rect center is inside drag rect
   const filtered: Element[] = [];
   candidates.forEach(el => {
     const r = el.getBoundingClientRect();
@@ -123,7 +132,6 @@ function getElementsInRect(x1: number, y1: number, x2: number, y2: number): Sel[
     }
   });
 
-  // Remove descendants — keep outermost only
   const outermost = filtered.filter(el =>
     !filtered.some(other => other !== el && other.contains(el))
   );
@@ -182,8 +190,9 @@ export function FigmaCaptureButton() {
   const dragStartRef     = useRef<{x:number;y:number}|null>(null);
   const isDragRef        = useRef(false);
   const dragJustEndedRef = useRef(false);
+  const toolbarRef       = useRef<HTMLDivElement>(null);
 
-  // Hide Figma's own toolbar (safety net)
+  // Hide Figma's own toolbar
   useEffect(() => {
     const hide = () => {
       document.querySelectorAll<HTMLElement>(
@@ -204,10 +213,32 @@ export function FigmaCaptureButton() {
     setTimeout(() => setToast(null), 2500);
   };
 
+  // ── Resolve effective selector (single or common ancestor for multi) ────────
+  const TMP_ID = "__cap_multi_target__";
+  const captureCleanupRef = useRef<(() => void) | null>(null);
+
+  const getSelector = (): string | null => {
+    // cleanup any previous temp ID
+    captureCleanupRef.current?.();
+    captureCleanupRef.current = null;
+
+    if (sels.length > 1) {
+      const container = getCommonAncestor(sels.map(s => s.el)) as HTMLElement;
+      const prevId = container.id;
+      container.id = TMP_ID;
+      captureCleanupRef.current = () => {
+        if (prevId) container.id = prevId;
+        else container.removeAttribute("id");
+      };
+      return "#" + TMP_ID;
+    }
+    return sel?.selector ?? null;
+  };
+
   // ── Picker event handlers ────────────────────────────────────────────────────
   const onOver = useCallback((e: MouseEvent) => {
     if (modeRef.current !== "picking") return;
-    if (isDragRef.current) return; // suppress hover HL while dragging
+    if (isDragRef.current) return;
     const el = e.target as Element;
     if (el?.id !== HL_ID) showHL(el);
   }, []);
@@ -216,8 +247,6 @@ export function FigmaCaptureButton() {
     if (e.key === "Escape") cancel();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // removePick references onMouseDown/onMouseMove/onMouseUp/onClickEl defined below —
-  // valid because removePick is only CALLED after all consts are initialized.
   const removePick = useCallback(() => {
     document.body.style.cursor = "";
     document.removeEventListener("mouseover", onOver, true);
@@ -230,22 +259,20 @@ export function FigmaCaptureButton() {
 
   const onClickEl = useCallback((e: MouseEvent) => {
     if (modeRef.current !== "picking") return;
-    // If drag just ended, skip this synthetic click
     if (dragJustEndedRef.current) { dragJustEndedRef.current = false; return; }
-    e.preventDefault(); e.stopPropagation();
     const el = e.target as Element;
     if (!el || el.id === HL_ID) return;
+    if (toolbarRef.current?.contains(el)) return;
+    e.preventDefault(); e.stopPropagation();
 
     if (e.ctrlKey || e.metaKey) {
-      // ── Ctrl+Click: accumulate, stay in picking ──
       const newSel = { el, selector: getCssSelector(el), label: elLabel(el) };
       const next = [...selsRef.current, newSel];
       selsRef.current = next;
       setSels(next);
       addSelHL(el, next.length - 1);
-      removeHL(); // clear hover highlight for next pick
+      removeHL();
     } else {
-      // ── Plain click: exact original behavior ──
       removeAllSelHL();
       selsRef.current = [];
       setSels([]);
@@ -272,24 +299,23 @@ export function FigmaCaptureButton() {
     const x = Math.min(dragStartRef.current.x, e.clientX);
     const y = Math.min(dragStartRef.current.y, e.clientY);
     setDragRect({ x, y, w: Math.abs(dx), h: Math.abs(dy) });
-    removeHL(); // suppress hover HL while dragging
+    removeHL();
   }, []);
 
   const onMouseUp = useCallback((e: MouseEvent) => {
     if (modeRef.current !== "picking" || !dragStartRef.current) return;
-    const start = dragStartRef.current; // save before clearing
+    const start = dragStartRef.current;
     const wasDrag = isDragRef.current;
     dragStartRef.current = null;
     isDragRef.current = false;
     setDragRect(null);
     if (!wasDrag) return;
 
-    // Suppress the click event that fires after mouseup
     dragJustEndedRef.current = true;
     setTimeout(() => { dragJustEndedRef.current = false; }, 0);
 
     const found = getElementsInRect(start.x, start.y, e.clientX, e.clientY);
-    if (found.length === 0) return; // nothing found, stay in picking
+    if (found.length === 0) return;
 
     removeAllSelHL();
     selsRef.current = found;
@@ -297,17 +323,15 @@ export function FigmaCaptureButton() {
     found.forEach((s, i) => addSelHL(s.el, i));
 
     if (found.length === 1) {
-      // Single element — treat as plain single-select
       removePick();
       showHL(found[0].el);
       setSel(found[0]);
       setSels([]); selsRef.current = [];
       setMode("selected");
     } else {
-      // Multiple elements — multi-select mode
       removePick();
       removeHL();
-      setSel(found[0]); // backward compat: sel = first element
+      setSel(found[0]);
       setMode("selected");
     }
   }, [removePick]);
@@ -334,16 +358,15 @@ export function FigmaCaptureButton() {
 
   const handleCtrlDone = () => {
     if (selsRef.current.length === 0) return;
-    const found = selsRef.current;
     removePick();
     removeHL();
-    setSel(found[0]); // backward compat
+    setSel(selsRef.current[0]);
     setMode("selected");
   };
 
   useEffect(() => () => { cancel(); removeHL(); }, [cancel]);
 
-  // Escape key while in selected mode (onKey is unregistered after picking ends)
+  // Escape in selected mode
   useEffect(() => {
     if (mode !== "selected") return;
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") cancel(); };
@@ -351,41 +374,48 @@ export function FigmaCaptureButton() {
     return () => document.removeEventListener("keydown", handler);
   }, [mode, cancel]);
 
-  // ── Action 1: 클립보드 복사 — UNCHANGED ──────────────────────────────────────
+  // ── Actions (unified: single & multi) ─────────────────────────────────────
   const copyToClipboard = async () => {
-    if (!sel) return;
-    if (!window.figma) {
+    const selector = getSelector();
+    if (!selector) return;
+    if (!window.figma?.captureForDesign) {
       showToast("capture.js가 로드되지 않았습니다", false);
       return;
     }
     try {
       await Promise.race([
-        window.figma.captureForDesign({ selector: sel.selector }),
+        window.figma.captureForDesign({ selector }),
         new Promise<void>((resolve) => setTimeout(resolve, 2000)),
       ]);
-      showToast("✓ 클립보드에 복사됨 — Figma에서 붙여넣기 하세요");
+      const msg = sels.length > 1
+        ? `✓ ${sels.length}개 클립보드에 복사됨 — Figma에서 붙여넣기 하세요`
+        : "✓ 클립보드에 복사됨 — Figma에서 붙여넣기 하세요";
+      showToast(msg);
       cancel();
     } catch {
       showToast("복사 실패", false);
+    } finally {
+      captureCleanupRef.current?.();
+      captureCleanupRef.current = null;
     }
   };
 
-  // ── Action 2: Figma로 전송 — UNCHANGED ──────────────────────────────────────
   const sendToFigma = async () => {
-    if (!sel) return;
+    const selector = getSelector();
+    if (!selector) return;
     setSending(true);
     const captureId = sessionStorage.getItem("__cap_id") ?? undefined;
     const endpoint  = sessionStorage.getItem("__cap_ep") ?? undefined;
 
-    if (!window.figma) {
-      showToast("Figma 플러그인이 연결되지 않았습니다", false);
+    if (!window.figma?.captureForDesign) {
+      showToast("capture.js가 로드되지 않았습니다", false);
       setSending(false); return;
     }
 
     if (!captureId || !endpoint) {
       try {
         await Promise.race([
-          window.figma.captureForDesign({ selector: sel.selector }),
+          window.figma.captureForDesign({ selector }),
           new Promise<void>((resolve) => setTimeout(resolve, 2000)),
         ]);
         showToast("클립보드에 복사됨 — Figma에서 Ctrl+V로 붙여넣기 하세요");
@@ -394,6 +424,8 @@ export function FigmaCaptureButton() {
       } catch {
         showToast("복사 실패 — Figma 플러그인 연결을 확인하세요", false);
       } finally {
+        captureCleanupRef.current?.();
+        captureCleanupRef.current = null;
         setSending(false);
       }
       return;
@@ -401,7 +433,7 @@ export function FigmaCaptureButton() {
 
     try {
       const result = await Promise.race([
-        window.figma.captureForDesign({ captureId, endpoint, selector: sel.selector })
+        window.figma.captureForDesign({ captureId, endpoint, selector })
           .then(() => "ok" as const),
         new Promise<"timeout">((resolve) => setTimeout(() => resolve("timeout"), 5000)),
       ]);
@@ -416,46 +448,8 @@ export function FigmaCaptureButton() {
     } catch {
       showToast("전송 실패 — Figma 플러그인 연결을 확인하세요", false);
     } finally {
-      setSending(false);
-    }
-  };
-
-  // ── Multi-select actions (NEW) ────────────────────────────────────────────────
-  const copyMultiToClipboard = async () => {
-    if (!window.figma) { showToast("capture.js가 로드되지 않았습니다", false); return; }
-    for (const s of sels) {
-      await Promise.race([
-        window.figma.captureForDesign({ selector: s.selector }),
-        new Promise<void>(r => setTimeout(r, 2000)),
-      ]);
-    }
-    showToast(`✓ ${sels.length}개 클립보드에 복사됨 — Figma에서 붙여넣기 하세요`);
-    cancel();
-  };
-
-  const sendMultiToFigma = async () => {
-    setSending(true);
-    if (!window.figma) {
-      showToast("Figma 플러그인이 연결되지 않았습니다", false);
-      setSending(false); return;
-    }
-    const captureId = sessionStorage.getItem("__cap_id") ?? undefined;
-    const endpoint  = sessionStorage.getItem("__cap_ep") ?? undefined;
-    try {
-      for (const s of sels) {
-        await Promise.race([
-          captureId && endpoint
-            ? window.figma.captureForDesign({ captureId, endpoint, selector: s.selector }).then(() => "ok" as const)
-            : window.figma.captureForDesign({ selector: s.selector }),
-          new Promise<void>(r => setTimeout(r, captureId ? 5000 : 2000)),
-        ]);
-      }
-      showToast(captureId ? `✓ ${sels.length}개 Figma로 전송됨` : `클립보드에 복사됨 — Ctrl+V로 붙여넣기`);
-      cancel();
-      window.open(FIGMA_URL, "_blank");
-    } catch {
-      showToast("전송 실패 — Figma 플러그인 연결을 확인하세요", false);
-    } finally {
+      captureCleanupRef.current?.();
+      captureCleanupRef.current = null;
       setSending(false);
     }
   };
@@ -468,20 +462,24 @@ export function FigmaCaptureButton() {
     <>
       {/* ── Toolbar ── */}
       <div
+        ref={toolbarRef}
         style={{ zIndex: 99999 }}
         className="fixed top-4 left-1/2 -translate-x-1/2 flex items-center gap-0.5 bg-[#1c1c1f]/95 border border-white/10 backdrop-blur-md rounded-2xl px-2 py-1.5 shadow-2xl shadow-black/60 select-none whitespace-nowrap"
       >
-        {/* ── PICKING ── */}
+        {mode === "idle" && (
+          <button onClick={startPick} className={btn}>
+            <IcPick /><span>요소 선택</span>
+          </button>
+        )}
+
         {mode === "picking" && (
           <>
             <span className="w-3.5 h-3.5 rounded-full border-2 border-indigo-400 border-t-transparent animate-spin mx-1 flex-shrink-0" />
-            {sels.length > 0 ? (
-              <span className="text-sm text-white font-medium px-2">
-                {sels.length}개 선택 — Ctrl+클릭으로 추가
-              </span>
-            ) : (
-              <span className="text-sm text-white font-medium px-2">캡처할 요소를 클릭하세요</span>
-            )}
+            <span className="text-sm text-white font-medium px-2">
+              {sels.length > 0
+                ? `${sels.length}개 선택 — Ctrl+클릭 추가`
+                : "캡처할 요소를 클릭하세요"}
+            </span>
             {sels.length > 0 && (
               <>
                 <Sep />
@@ -493,24 +491,17 @@ export function FigmaCaptureButton() {
           </>
         )}
 
-        {/* ── SELECTED ── */}
         {mode === "selected" && sel && (
           <>
             <span className="text-xs font-mono text-indigo-300 px-2 max-w-36 truncate">
               {sels.length > 1 ? `${sels.length}개 선택됨` : sel.label}
             </span>
             <Sep />
-            <button
-              onClick={sels.length > 1 ? copyMultiToClipboard : copyToClipboard}
-              className={btn} title="클립보드에 복사 후 Figma에 붙여넣기"
-            >
-              <IcClip /><span>클립보드에 복사</span>
+            <button onClick={copyToClipboard} className={btn} title="클립보드에 복사">
+              <IcClip /><span>복사</span>
             </button>
             <Sep />
-            <button
-              onClick={sels.length > 1 ? sendMultiToFigma : sendToFigma}
-              disabled={sending} className={btnPurple} title="Figma 프로젝트에 전송"
-            >
+            <button onClick={sendToFigma} disabled={sending} className={btnPurple} title="Figma로 전송">
               <IcFigma />
               <span>{sending ? "전송 중…" : "Figma로 보내기"}</span>
             </button>
@@ -519,20 +510,9 @@ export function FigmaCaptureButton() {
             <button onClick={cancel} className={btn}><IcX /></button>
           </>
         )}
-
-        {/* ── IDLE ── */}
-        {mode === "idle" && (
-          <>
-            <button onClick={startPick} className={btn}>
-              <IcPick /><span>요소 선택</span>
-            </button>
-            <Sep />
-            <button onClick={cancel} className={btn}><IcX /></button>
-          </>
-        )}
       </div>
 
-      {/* ── Drag area overlay ── */}
+      {/* ── Drag overlay ── */}
       {dragRect && (
         <div
           style={{
